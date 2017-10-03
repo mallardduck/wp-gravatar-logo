@@ -23,7 +23,6 @@
  * along with WP Avatar Logo. If not, see <http://www.gnu.org/licenses/>.
  *
  * @package   @@pkg.name
- * @copyright @@pkg.copyright
  * @author    @@pkg.author
  * @license   @@pkg.license
  */
@@ -70,6 +69,7 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 				self::$instance->actions();
 				self::$instance->filters();
 				self::$instance->includes();
+				self::$instance->load_textdomain();
 			}
 
 			return self::$instance;
@@ -193,6 +193,16 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 			);
 
 			return $html;
+		}
+
+		/**
+		 * Load the translation files.
+		 *
+		 * @access public
+		 * @return void
+		 */
+		public function load_textdomain() {
+			load_plugin_textdomain( '@@textdomain', false, dirname( plugin_basename( WP_GRAVATAR_LOGO_PLUGIN_DIR ) ) . '/languages/' );
 		}
 	}
 

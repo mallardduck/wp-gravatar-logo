@@ -3,7 +3,6 @@
  * Customizer functionality
  *
  * @package   @@pkg.name
- * @copyright @@pkg.copyright
  * @author    @@pkg.author
  * @license   @@pkg.license
  */

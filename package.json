@@ -3,10 +3,9 @@
   "slug": "wp-gravatar-logo",  
   "textdomain": "wp-gravatar-logo",
   "version": "1.0.0",
-  "downloadid": "null",
   "description": "",  
-  "theme_uri": "https://themebeans.com/",
-  "author": "ThemeBeans <hello@themebeans.com>",
+  "plugin_uri": "https://themebeans.com/",
+  "author": "Rich Tabor of ThemeBeans <hello@themebeans.com>",
   "author_uri": "https://themebeans.com",
   "author_shop": "ThemeBeans",
   "license": "http://www.gnu.org/licenses/gpl-2.0.html GNU Public License"

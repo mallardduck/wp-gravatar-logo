@@ -30,7 +30,6 @@ var scriptWatchFiles  		= './assets/js/*.js'; // Path to all *.scss files inside
 
 var projectPHPWatchFiles    	= ['./**/*.php', '!_dist', '!_dist/**', '!_dist/**/*.php', '!_demo', '!_demo/**','!_demo/**/*.php'];
 
-// Translations.
 var text_domain             	= '@@textdomain';
 var destFile                	= slug+'.pot';
 var packageName             	= project;
@@ -39,6 +38,11 @@ var lastTranslator          	= pkg.author;
 var team                    	= pkg.author_shop;
 var translatePath           	= './languages';
 var translatableFiles       	= ['./**/*.php'];
+
+var buildFiles      	    = ['./**', '!dist/', '!.gitattributes', '!.csscomb.json', '!node_modules/**', '!'+ slug +'.sublime-project', '!package.json', '!gulpfile.js', '!assets/scss/**', '!*.json', '!*.map', '!*.xml', '!*.sublime-workspace', '!*.sublime-gulp.cache', '!*.log', '!*.DS_Store','!*.gitignore', '!TODO', '!*.git' ];
+var buildDestination        = './dist/'+ slug +'/';
+var distributionFiles       = './dist/'+ slug +'/**/*';
+
 
 /**
  * Browsers you care about for autoprefixing. https://github.com/ai/browserslist
@@ -62,13 +66,17 @@ const AUTOPREFIXER_BROWSERS = [
  */
 var gulp         = require('gulp');
 var sass         = require('gulp-sass');
+var cleaner      = require('gulp-clean');
 var minifycss    = require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
 var rename       = require('gulp-rename');
+var sort         = require('gulp-sort');
+var notify       = require('gulp-notify');
 var runSequence  = require('gulp-run-sequence');
 var copy         = require('gulp-copy');
 var lineec       = require('gulp-line-ending-corrector');
 var filter       = require('gulp-filter');
+var replace      = require('gulp-replace-task');
 var csscomb      = require('gulp-csscomb');
 var sourcemaps   = require('gulp-sourcemaps');
 var browserSync  = require('browser-sync').create();
@@ -209,12 +217,14 @@ gulp.task( 'build-clean', function () {
 	.pipe(cleaner());
 });
 
-gulp.task( 'build-copy', function() {
+gulp.task( 'build-copy', ['build-clean'], function() {
     return gulp.src( buildFiles )
     .pipe( copy( buildDestination ) );
 });
 
-gulp.task('build-variables', function () {
+gulp.task( 'build-clean-and-copy', ['build-clean', 'build-copy' ], function () { } );
+
+gulp.task('build-variables', ['build-clean-and-copy'], function () {
 	return gulp.src( distributionFiles )
 	.pipe( replace( {
 		patterns: [
@@ -223,40 +233,38 @@ gulp.task('build-variables', function () {
 			replacement: version
 		},
 		{
-			match: 'pkg.license',
-			replacement: license
-		},
-		{
-			match: 'pkg.author',
-			replacement: author
-		},
-		{
-			match: 'pkg.plugin_uri',
-			replacement: plugin_uri
-		},
-		{
-			match: 'pkg.copyright',
-			replacement: copyright
-		},
-		{
 			match: 'textdomain',
 			replacement: pkg.textdomain
 		},
+		{
+			match: 'pkg.name',
+			replacement: project
+		},
+		{
+			match: 'pkg.license',
+			replacement: pkg.license
+		},
+		{
+			match: 'pkg.author',
+			replacement: pkg.author
+		}
 		]
 	}))
 	.pipe( gulp.dest( buildDestination ) );
 });
 
-gulp.task( 'build-zip' , function() {
+gulp.task( 'build-zip', ['build-variables'], function() {
     return gulp.src( buildDestination+'/**' )
-    .pipe( zip( 'wp-gravatar-logo.zip' ) )
+    .pipe( zip( slug +'.zip' ) )
     .pipe( gulp.dest( './dist/' ) );
 });
 
-gulp.task( 'build-clean-after-zip', function () {
+gulp.task( 'build-clean-after-zip', ['build-zip'], function () {
 	return gulp.src( [ buildDestination, '!/dist/' + slug + '.zip'] , { read: false } )
 	.pipe(cleaner());
 });
+
+gulp.task( 'build-zip-and-clean', ['build-zip', 'build-clean-after-zip' ], function () { } );
 
 gulp.task( 'build-notification', function () {
 	return gulp.src( '' )
@@ -275,5 +283,5 @@ gulp.task( 'default', ['clear', 'styles_frontend', 'styles_customizer_range', 's
 });
 
 gulp.task('build', function(callback) {
-	runSequence( 'clear', 'build-clean', ['styles', 'styles_frontend', 'styles_customizer_range', 'scripts', 'build-translate'], 'build-clean', 'build-copy', 'build-variables', 'build-zip', 'build-clean-after-zip', 'build-notification', callback);
+	runSequence( 'clear', 'build-clean', ['styles_frontend', 'styles_customizer_range', 'scripts', 'build-translate'], 'build-clean-and-copy', 'build-variables', 'build-zip-and-clean', 'build-notification', callback);
 });
