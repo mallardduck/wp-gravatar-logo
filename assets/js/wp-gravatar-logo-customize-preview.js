@@ -13,4 +13,38 @@
 		});
 	});
 
+	wp.customize( 'wp_gravatar_logo__active', function( value ) {
+		value.bind( function( to ) {
+
+			if ( true === to ) {
+
+				$( '.custom-logo-link--avatar' ).css({
+					clip: 'auto',
+					position: 'relative'
+				});
+
+				$( '.custom-logo-link--original' ).css({
+					clip: 'rect(1px, 1px, 1px, 1px)',
+					position: 'absolute'
+				});
+
+				$( 'body' ).addClass( 'gravatar--active' );
+
+			} else {
+
+				$( '.custom-logo-link--avatar' ).css({
+					clip: 'rect(1px, 1px, 1px, 1px)',
+					position: 'absolute'
+				});
+
+				$( '.custom-logo-link--original' ).css({
+					clip: 'auto',
+					position: 'relative'
+				});
+
+				$( 'body' ).removeClass( 'gravatar--active' );
+			}
+		});
+	});
+
 } )( jQuery );

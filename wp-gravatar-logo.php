@@ -1,13 +1,15 @@
 <?php
 /**
  * Plugin Name: WP Gravatar Logo
- * Plugin URI: https://themebeans.com
- * Description:
- * Author: ThemeBeans
- * Author URI: https://themebeans.com
- * Version: 1.0.0
- * Text Domain: wp-gravatar-logo
+ * Plugin URI: https://themebeans.com/plugins/wp-gravatar-logo
+ * Description: @@pkg.description
+ * Author: @@pkg.author
+ * Author URI: https://richtabor.com
+ * Version: @@pkg.version
+ * Text Domain: @@pkg.textdomain
  * Domain Path: languages
+ * Requires at least: 4.0
+ * Tested up to: 4.8.2
  *
  * WP Gravatar Logo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +27,7 @@
  * @package   @@pkg.name
  * @author    @@pkg.author
  * @license   @@pkg.license
+ * @version   @@pkg.version
  */
 
 // Exit if accessed directly.
@@ -37,7 +40,7 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 	/**
 	 * Main WP_Gravatar_Logo Class.
 	 *
-	 * @since 1.4
+	 * @since 1.0
 	 */
 	final class WP_Gravatar_Logo {
 		/** Singleton *************************************************************/
@@ -66,7 +69,6 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof WP_Gravatar_Logo ) ) {
 				self::$instance = new WP_Gravatar_Logo;
 				self::$instance->constants();
-				self::$instance->actions();
 				self::$instance->filters();
 				self::$instance->includes();
 				self::$instance->load_textdomain();
@@ -117,8 +119,8 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 		/**
 		 * Define constant if not already set.
 		 *
-		 * @param  string      $name Name of the definition.
-		 * @param  string|bool $value Default value.
+		 * @param  string|string $name Name of the definition.
+		 * @param  string|bool   $value Default value.
 		 */
 		private function define( $name, $value ) {
 			if ( ! defined( $name ) ) {
@@ -127,22 +129,16 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 		}
 
 		/**
-		 * Load the actions.
-		 *
-		 * @access public
-		 * @return void
-		 */
-		public function actions() {
-			add_action( 'customize_register', array( $this, 'load_customizer_controls' ), 11 );
-		}
-
-		/**
 		 * Load the filters
 		 *
 		 * @return void
 		 */
 		public function filters() {
-			add_filter( 'get_custom_logo', array( $this, 'avatar' ) );
+			add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 2 );
+
+			if ( true === get_theme_mod( 'wp_gravatar_logo__active', true ) || is_customize_preview() ) {
+				add_filter( 'get_custom_logo', array( $this, 'get_gravatar' ) );
+			}
 		}
 
 		/**
@@ -153,29 +149,13 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 		 */
 		private function includes() {
 			require_once WP_GRAVATAR_LOGO_PLUGIN_DIR . 'includes/class-wp-gravatar-logo-scripts.php';
-			require_once WP_GRAVATAR_LOGO_PLUGIN_DIR . 'includes/customizer.php';
-		}
-
-		/**
-		 * Register Customizer Controls.
-		 *
-		 * @access public
-		 * @since 1.0.0
-		 * @return void
-		 */
-		public function load_customizer_controls() {
-			require_once WP_GRAVATAR_LOGO_PLUGIN_DIR . 'includes/class-wp-gravatar-logo-range-control.php';
+			require_once WP_GRAVATAR_LOGO_PLUGIN_DIR . 'includes/class-wp-gravatar-logo-customizer.php';
 		}
 
 		/**
 		 * Output an <img> tag of the site logo.
 		 */
-		public function avatar() {
-
-			// If we're not on 3.5 yet, exit now.
-			if ( ! function_exists( 'the_custom_logo' ) ) {
-				return;
-			}
+		public function get_gravatar() {
 
 			/**
 			 * Retreive the avatar size, which is two times what's set in the Customizer (for retina).
@@ -185,14 +165,46 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 			/**
 			 * Filter the author avatar. Defaults to the admin's email address.
 			 */
-			$avatar = apply_filters( 'wp_gravatar_logo_emailaddress', get_bloginfo( 'admin_email' ) );
+			$avatar = get_theme_mod( 'wp_gravatar_logo__email', get_bloginfo( 'admin_email' ) );
 
-			$html = sprintf( '<a href="%1$s" class="custom-logo-link custom-logo-link--avatar" rel="home" itemprop="urls">%2$s</a>',
+			$html = sprintf( '<a href="%1$s" class="custom-logo-link custom-logo-link--avatar" rel="home" itemprop="url">%2$s</a>',
 				esc_url( home_url( '/' ) ),
 				get_avatar( $avatar, $avatar_width * 2 )
 			);
 
-			return $html;
+			$custom_logo = '';
+
+			if ( is_customize_preview() ) {
+
+				$custom_logo_id = get_theme_mod( 'custom_logo' );
+
+				$custom_logo = sprintf( '<a href="%1$s" class="custom-logo-link custom-logo-link--original" rel="home" itemprop="url">%2$s</a>',
+					esc_url( home_url( '/' ) ),
+					wp_get_attachment_image( $custom_logo_id, 'full', false, array(
+						'class'    => 'custom-logo',
+					) )
+				);
+			}
+
+			return $html . $custom_logo;
+		}
+
+		/**
+		 * Plugins row action links.
+		 *
+		 * @param array|string  $links already defined action links.
+		 * @param string|string $file plugin file path and name being processed.
+		 * @return array $links
+		 */
+		function plugin_action_links( $links, $file ) {
+
+			$settings_link = '<a href="' . esc_url( admin_url( 'customize.php?autofocus[section]=title_tagline' ) ) . '">' . esc_html__( 'Customize', '@@textdomain' ) . '</a>';
+
+			if ( 'wp-gravatar-logo/wp-gravatar-logo.php' == $file ) {
+				array_unshift( $links, $settings_link );
+			}
+
+			return $links;
 		}
 
 		/**
@@ -206,7 +218,7 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 		}
 	}
 
-endif; // End if class_exists check.
+endif;
 
 /**
  * The main function for that returns WP_Gravatar_Logo

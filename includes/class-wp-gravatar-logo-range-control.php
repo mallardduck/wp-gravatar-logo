@@ -7,6 +7,7 @@
  * @package   @@pkg.name
  * @author    @@pkg.author
  * @license   @@pkg.license
+ * @version   @@pkg.version
  */
 
 // Exit if accessed directly.
@@ -35,6 +36,14 @@ class WP_Gravatar_Logo_Range_Control extends WP_Customize_Control {
 	public $type = 'wp-gravatar-logo-range';
 
 	/**
+	 * Get the control default.
+	 *
+	 * @access public
+	 * @var $type Customizer type option
+	 */
+	public $default = 'default';
+
+	/**
 	 * Enqueue neccessary custom control stylesheet.
 	 */
 	public function enqueue() {
@@ -60,22 +69,28 @@ class WP_Gravatar_Logo_Range_Control extends WP_Customize_Control {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_control/render_content/
 	 */
 	public function render_content() {
+		?>
 
-		if ( ! empty( $this->label ) ) : ?>
-			<label>
-				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-			</label>
-		<?php endif; ?>
+		<div class="relative">
 
-		<div class="value">
-			<span><?php echo esc_attr( $this->value() ); ?></span>
-			<input class="track-input" data-default-value="<?php echo esc_html( $this->default ); ?>" type="number"<?php $this->input_attrs(); ?> value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?> />
-			<em><?php echo esc_html( $this->description ); ?></em>
+			<?php
+			if ( ! empty( $this->label ) ) : ?>
+				<label>
+					<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+				</label>
+			<?php endif; ?>
+
+			<div class="value">
+				<span><?php echo esc_attr( $this->value() ); ?></span>
+				<input class="track-input" data-default-value="<?php echo esc_html( $this->default ); ?>" type="number"<?php $this->input_attrs(); ?> value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?> />
+				<em><?php echo esc_html( $this->description ); ?></em>
+			</div>
+
+			<input class="track" data-default-value="<?php echo esc_html( $this->default ); ?>" data-input-type="range" type="range"<?php $this->input_attrs(); ?> value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?> />
+			
+			<a type="button" value="reset" class="range-reset"></a>
+
 		</div>
-
-		<input class="track" data-default-value="<?php echo esc_html( $this->default ); ?>" data-input-type="range" type="range"<?php $this->input_attrs(); ?> value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?> />
-		
-		<a type="button" value="reset" class="range-reset"></a>
 		
 		<?php
 	}

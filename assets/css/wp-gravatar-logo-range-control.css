@@ -1,6 +1,31 @@
+#customize-control-wp_gravatar_logo__email {
+	border-top: 1px solid #ddd;
+	margin-top: 12px;
+	padding-top: 15px;
+}
+
+#customize-control-wp_gravatar_logo__active {
+	margin-top: -5px;
+}
+
+#customize-control-wp_gravatar_logo__active label {
+	padding-top: 0;
+}
+
 .customize-control-wp-gravatar-logo-range {
-	margin-bottom: 12px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 15px;
+	padding-bottom: 15px;
 	position: relative;
+}
+
+.customize-control-wp-gravatar-logo-range .relative {
+	position: relative;
+}
+
+.customize-control-wp-gravatar-logo-range .notice {
+	border-radius: 2px;
+	padding: 8px 12px;
 }
 
 .customize-control-wp-gravatar-logo-range:hover label {
@@ -40,7 +65,7 @@
 	transform: translatey(-50%);
 	-webkit-transition: opacity 200ms cubic-bezier(0.694, 0.0482, 0.335, 1);
 	transition: opacity 200ms cubic-bezier(0.694, 0.0482, 0.335, 1);
-	width: 72%;
+	width: 74%;
 }
 
 .customize-control-wp-gravatar-logo-range .value {

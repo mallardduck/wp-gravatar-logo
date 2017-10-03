@@ -247,6 +247,10 @@ gulp.task('build-variables', ['build-clean-and-copy'], function () {
 		{
 			match: 'pkg.author',
 			replacement: pkg.author
+		},
+		{
+			match: 'pkg.description',
+			replacement: pkg.description
 		}
 		]
 	}))

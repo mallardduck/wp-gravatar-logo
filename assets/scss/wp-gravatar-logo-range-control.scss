@@ -1,8 +1,37 @@
 @import "variables";
 
+// #customize-control-custom_logo {
+// 	display: none !important;
+// }
+
+#customize-control-wp_gravatar_logo__email {
+	border-top: 1px solid #ddd;
+	padding-top: 15px;
+	margin-top: 12px;
+}
+
+#customize-control-wp_gravatar_logo__active {
+	margin-top: -5px;
+
+	label {
+		padding-top: 0;
+	}
+}
+
 .customize-control-wp-gravatar-logo-range {
-	margin-bottom: 12px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 15px;
+	padding-bottom: 15px;
 	position: relative;
+
+	.relative {
+		position: relative;
+	}
+
+	.notice {
+		padding: 8px 12px;
+		border-radius: 2px;
+	}
 
 	&:hover {
 		label {
@@ -36,7 +65,7 @@
 		top: 50%;
 		transform: translatey(-50%);
 		transition: opacity $range--opacity-speed $range--opacity-cubic;
-		width: 72%;
+		width: 74%;
 	}
 
 	.value {

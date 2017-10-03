@@ -1,3 +1,14 @@
-.custom-logo-link img {
-	max-width: none;
+.custom-logo-link.custom-logo-link--avatar img {
+	border-radius: 100%;
+	max-height: none !important;
+	vertical-align: middle;
+}
+
+.gravatar--active .custom-logo-link--original {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute;
+}
+
+.customize-partial-edit-shortcuts-shown.gravatar--active .customize-partial-edit-shortcut-custom_logo {
+	display: none !important;
 }

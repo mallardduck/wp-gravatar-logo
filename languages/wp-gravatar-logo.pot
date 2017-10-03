@@ -17,10 +17,22 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
-#: includes/customizer.php:29
-msgid "Avatar Width"
+#: includes/class-wp-gravatar-logo-customizer.php:55
+msgid "Gravatar Email Address"
 msgstr ""
 
-#: wp-gravatar-logo.php:89, wp-gravatar-logo.php:100
+#: includes/class-wp-gravatar-logo-customizer.php:74
+msgid "Display Gravatar"
+msgstr ""
+
+#: includes/class-wp-gravatar-logo-customizer.php:92
+msgid "Gravatar Width"
+msgstr ""
+
+#: wp-gravatar-logo.php:91, wp-gravatar-logo.php:102
 msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: wp-gravatar-logo.php:201
+msgid "Customize"
 msgstr ""
