@@ -4,18 +4,25 @@
  */
 
 var pkg                     	= require('./package.json');
+var project                 	= pkg.name;
+var slug                    	= pkg.slug;
+var version                	= pkg.version;
+var license                	= pkg.license;
+var copyright              	= pkg.copyright;
+var author                 	= pkg.author;
+var plugin_uri              	= pkg.plugin_uri;
 var projectURL              	= 'http://wp-avatar-logo.dev/wp-admin/customize.php';
 
-var styleFrontendSRC  		= './assets/scss/wp-avatar-logo-frontend.scss'; // Path to frontend .scss file.
-var styleRangeControlSRC  	= './assets/scss/wp-avatar-logo-range-control.scss'; // Path to Customizer range control .scss file.
+var styleFrontendSRC  		= './assets/scss/wp-gravatar-logo-frontend.scss'; // Path to frontend .scss file.
+var styleRangeControlSRC  	= './assets/scss/wp-gravatar-logo-range-control.scss'; // Path to Customizer range control .scss file.
 
 var styleDestination  		= './assets/css/'; // Path to place the compiled CSS file.
 var styleWatchFiles   		= './assets/scss/**/*.scss'; // Path to all *.scss files inside css folder and inside them.
 
-var scriptCustomizePreviewFile  = 'wp-avatar-logo-customize-preview'; // JS file name.
+var scriptCustomizePreviewFile  = 'wp-gravatar-logo-customize-preview'; // JS file name.
 var scriptCustomizePreviewSRC   = './assets/js/'+ scriptCustomizePreviewFile +'.js'; // The JS file src.
 
-var scriptRangeControlFile  	= 'wp-avatar-logo-range-control'; // JS file name.
+var scriptRangeControlFile  	= 'wp-gravatar-logo-range-control'; // JS file name.
 var scriptRangeControlSRC   	= './assets/js/'+ scriptRangeControlFile +'.js'; // The JS file src.
 
 var scriptDestination 		= './assets/js/'; // Path to place the compiled JS custom scripts file.
@@ -24,14 +31,14 @@ var scriptWatchFiles  		= './assets/js/*.js'; // Path to all *.scss files inside
 var projectPHPWatchFiles    	= ['./**/*.php', '!_dist', '!_dist/**', '!_dist/**/*.php', '!_demo', '!_demo/**','!_demo/**/*.php'];
 
 // Translations.
-var text_domain             = '@@textdomain';
-var destFile                = slug+'.pot';
-var packageName             = project;
-var bugReport               = pkg.author_uri;
-var lastTranslator          = pkg.author;
-var team                    = pkg.author_shop;
-var translatePath           = './languages';
-var translatableFiles       = ['./**/*.php'];
+var text_domain             	= '@@textdomain';
+var destFile                	= slug+'.pot';
+var packageName             	= project;
+var bugReport               	= pkg.author_uri;
+var lastTranslator          	= pkg.author;
+var team                    	= pkg.author_shop;
+var translatePath           	= './languages';
+var translatableFiles       	= ['./**/*.php'];
 
 /**
  * Browsers you care about for autoprefixing. https://github.com/ai/browserslist
@@ -58,19 +65,24 @@ var sass         = require('gulp-sass');
 var minifycss    = require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
 var rename       = require('gulp-rename');
+var runSequence  = require('gulp-run-sequence');
+var copy         = require('gulp-copy');
 var lineec       = require('gulp-line-ending-corrector');
 var filter       = require('gulp-filter');
+var csscomb      = require('gulp-csscomb');
 var sourcemaps   = require('gulp-sourcemaps');
 var browserSync  = require('browser-sync').create();
-var reload       = browserSync.reload;
 var cache        = require('gulp-cache');
+var uglify       = require('gulp-uglify');
 var wpPot        = require('gulp-wp-pot');
+var zip          = require('gulp-zip');
+var reload       = browserSync.reload;
 
 /**
  * Clean gulp cache
  */
 gulp.task('clear', function () {
-   cache.clearAll();
+	cache.clearAll();
 });
 
 gulp.task( 'browser_sync', function() {
@@ -150,7 +162,7 @@ gulp.task('styles_customizer_range', function () {
 });
 
 gulp.task( 'scripts', function() {
-	// wp-avatar-logo-customize-preview.js
+	// wp-gravatar-logo-customize-preview.js
 	gulp.src( scriptCustomizePreviewSRC )
 	.pipe( rename( {
 		basename: scriptCustomizePreviewFile,
@@ -160,7 +172,7 @@ gulp.task( 'scripts', function() {
 	.pipe( lineec() )
 	.pipe( gulp.dest( scriptDestination ) )
 
-	// wp-avatar-logo-range-control.js
+	// wp-gravatar-logo-range-control.js
 	gulp.src( scriptRangeControlSRC )
 	.pipe( rename( {
 		basename: scriptRangeControlFile,
@@ -237,7 +249,7 @@ gulp.task('build-variables', function () {
 
 gulp.task( 'build-zip' , function() {
     return gulp.src( buildDestination+'/**' )
-    .pipe( zip( 'wp-avatar-logo.zip' ) )
+    .pipe( zip( 'wp-gravatar-logo.zip' ) )
     .pipe( gulp.dest( './dist/' ) );
 });
 

@@ -8,7 +8,7 @@
 
 	// Site avatar.
 
-	wp.customize( 'wp_avatar_logo__width', function( value ) {
+	wp.customize( 'wp_gravatar_logo__width', function( value ) {
 		value.bind( function( to ) {
 			$( '.custom-logo-link--avatar img' ).css( 'width', to );
 		});

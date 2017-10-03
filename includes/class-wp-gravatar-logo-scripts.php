@@ -13,12 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'WP_Avatar_Logo_Scripts' ) ) :
+if ( ! class_exists( 'WP_Gravatar_Logo_Scripts' ) ) :
 
 	/**
 	 * Enqueues JS & CSS assets
 	 */
-	class WP_Avatar_Logo_Scripts {
+	class WP_Gravatar_Logo_Scripts {
 
 		/**
 		 * The class constructor.
@@ -37,12 +37,12 @@ if ( ! class_exists( 'WP_Avatar_Logo_Scripts' ) ) :
 		public function frontend_styles() {
 
 			// Define where the control's scripts are.
-			$css_dir = WP_AVATAR_LOGO_PLUGIN_URL . 'assets/css/';
+			$css_dir = WP_GRAVATAR_LOGO_PLUGIN_URL . 'assets/css/';
 
 			// Use minified libraries if SCRIPT_DEBUG is turned off.
 			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-			wp_enqueue_style( 'wp-avatar-logo-frontend', $css_dir . 'wp-avatar-logo-frontend' . $suffix . '.css', null );
+			wp_enqueue_style( 'wp-gravatar-logo-frontend', $css_dir . 'wp-gravatar-logo-frontend' . $suffix . '.css', null );
 		}
 
 		/**
@@ -51,15 +51,15 @@ if ( ! class_exists( 'WP_Avatar_Logo_Scripts' ) ) :
 		public function customize_preview_init() {
 
 			// Define where the scripts are.
-			$js_dir  = WP_AVATAR_LOGO_PLUGIN_URL . 'assets/js/';
+			$js_dir  = WP_GRAVATAR_LOGO_PLUGIN_URL . 'assets/js/';
 
 			// Use minified libraries if SCRIPT_DEBUG is turned off.
 			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-			wp_enqueue_script( 'wp-avatar-logo-customize-preview', $js_dir . 'wp-avatar-logo-customize-preview' . $suffix . '.js', array( 'customize-preview' ), WP_AVATAR_LOGO_VERSION, true );
+			wp_enqueue_script( 'wp-gravatar-logo-customize-preview', $js_dir . 'wp-gravatar-logo-customize-preview' . $suffix . '.js', array( 'customize-preview' ), WP_GRAVATAR_LOGO_VERSION, true );
 		}
 	}
 
 endif;
 
-new WP_Avatar_Logo_Scripts();
+new WP_Gravatar_Logo_Scripts();

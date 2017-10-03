@@ -1,4 +1,6 @@
-.customize-control-wp-avatar-logo-range {
+@import "variables";
+
+.customize-control-wp-gravatar-logo-range {
 	margin-bottom: 12px;
 	position: relative;
 
@@ -18,10 +20,6 @@
 		margin-right: 55px;
 		user-select: none;
 		transition: opacity $range--opacity-speed $range--opacity-cubic;
-
-		.customize-control-title {
-			font-weight: bold;
-		}
 	}
 
 	span {

@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: WP Avatar Logo
+ * Plugin Name: WP Gravatar Logo
  * Plugin URI: https://themebeans.com
  * Description:
  * Author: ThemeBeans
  * Author URI: https://themebeans.com
  * Version: 1.0.0
- * Text Domain: wp-avatar-logo
+ * Text Domain: wp-gravatar-logo
  * Domain Path: languages
  *
- * WP Avatar Logo is free software: you can redistribute it and/or modify
+ * WP Gravatar Logo is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * any later version.
@@ -33,39 +33,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'WP_Avatar_Logo' ) ) :
+if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 
 	/**
-	 * Main WP_Avatar_Logo Class.
+	 * Main WP_Gravatar_Logo Class.
 	 *
 	 * @since 1.4
 	 */
-	final class WP_Avatar_Logo {
+	final class WP_Gravatar_Logo {
 		/** Singleton *************************************************************/
 
 		/**
-		 * WP_Avatar_Logo The one true WP_Avatar_Logo
+		 * WP_Gravatar_Logo The one true WP_Gravatar_Logo
 		 *
 		 * @var string $instance
 		 */
 		private static $instance;
 
 		/**
-		 * Main WP_Avatar_Logo Instance.
+		 * Main WP_Gravatar_Logo Instance.
 		 *
-		 * Insures that only one instance of WP_Avatar_Logo exists in memory at any one
+		 * Insures that only one instance of WP_Gravatar_Logo exists in memory at any one
 		 * time. Also prevents needing to define globals all over the place.
 		 *
 		 * @static
-		 * @uses WP_Avatar_Logo::setup_constants() Setup the constants needed.
-		 * @uses WP_Avatar_Logo::includes() Include the required files.
-		 * @uses WP_Avatar_Logo::load_textdomain() load the language files.
-		 * @see  WP_Avatar_Logo()
-		 * @return object|WP_Avatar_Logo The one true WP_Avatar_Logo
+		 * @uses WP_Gravatar_Logo::setup_constants() Setup the constants needed.
+		 * @uses WP_Gravatar_Logo::includes() Include the required files.
+		 * @uses WP_Gravatar_Logo::load_textdomain() load the language files.
+		 * @see  WP_Gravatar_Logo()
+		 * @return object|WP_Gravatar_Logo The one true WP_Gravatar_Logo
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof WP_Avatar_Logo ) ) {
-				self::$instance = new WP_Avatar_Logo;
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof WP_Gravatar_Logo ) ) {
+				self::$instance = new WP_Gravatar_Logo;
 				self::$instance->constants();
 				self::$instance->actions();
 				self::$instance->filters();
@@ -107,11 +107,11 @@ if ( ! class_exists( 'WP_Avatar_Logo' ) ) :
 		 * @return void
 		 */
 		private function constants() {
-			$this->define( 'WP_AVATAR_LOGO_VERSION', '@@pkg.version' );
-			$this->define( 'WP_AVATAR_LOGO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-			$this->define( 'WP_AVATAR_LOGO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-			$this->define( 'WP_AVATAR_LOGO_PLUGIN_FILE', __FILE__ );
-			$this->define( 'WP_AVATAR_LOGO_ABSPATH', dirname( __FILE__ ) . '/' );
+			$this->define( 'WP_GRAVATAR_LOGO_VERSION', '@@pkg.version' );
+			$this->define( 'WP_GRAVATAR_LOGO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+			$this->define( 'WP_GRAVATAR_LOGO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+			$this->define( 'WP_GRAVATAR_LOGO_PLUGIN_FILE', __FILE__ );
+			$this->define( 'WP_GRAVATAR_LOGO_ABSPATH', dirname( __FILE__ ) . '/' );
 		}
 
 		/**
@@ -152,8 +152,8 @@ if ( ! class_exists( 'WP_Avatar_Logo' ) ) :
 		 * @return void
 		 */
 		private function includes() {
-			require_once WP_AVATAR_LOGO_PLUGIN_DIR . 'includes/class-wp-avatar-logo-scripts.php';
-			require_once WP_AVATAR_LOGO_PLUGIN_DIR . 'includes/customizer.php';
+			require_once WP_GRAVATAR_LOGO_PLUGIN_DIR . 'includes/class-wp-gravatar-logo-scripts.php';
+			require_once WP_GRAVATAR_LOGO_PLUGIN_DIR . 'includes/customizer.php';
 		}
 
 		/**
@@ -164,7 +164,7 @@ if ( ! class_exists( 'WP_Avatar_Logo' ) ) :
 		 * @return void
 		 */
 		public function load_customizer_controls() {
-			require_once WP_AVATAR_LOGO_PLUGIN_DIR . 'includes/class-wp-avatar-logo-range-control.php';
+			require_once WP_GRAVATAR_LOGO_PLUGIN_DIR . 'includes/class-wp-gravatar-logo-range-control.php';
 		}
 
 		/**
@@ -180,12 +180,12 @@ if ( ! class_exists( 'WP_Avatar_Logo' ) ) :
 			/**
 			 * Retreive the avatar size, which is two times what's set in the Customizer (for retina).
 			 */
-			$avatar_width = get_theme_mod( 'custom_logo_max_width', '50' );
+			$avatar_width = get_theme_mod( 'wp_gravatar_logo__width', '50' );
 
 			/**
 			 * Filter the author avatar. Defaults to the admin's email address.
 			 */
-			$avatar = apply_filters( 'wp_avatar_logo_emailaddress', get_bloginfo( 'admin_email' ) );
+			$avatar = apply_filters( 'wp_gravatar_logo_emailaddress', get_bloginfo( 'admin_email' ) );
 
 			$html = sprintf( '<a href="%1$s" class="custom-logo-link custom-logo-link--avatar" rel="home" itemprop="urls">%2$s</a>',
 				esc_url( home_url( '/' ) ),
@@ -199,22 +199,22 @@ if ( ! class_exists( 'WP_Avatar_Logo' ) ) :
 endif; // End if class_exists check.
 
 /**
- * The main function for that returns WP_Avatar_Logo
+ * The main function for that returns WP_Gravatar_Logo
  *
- * The main function responsible for returning the one true WP_Avatar_Logo
+ * The main function responsible for returning the one true WP_Gravatar_Logo
  * Instance to functions everywhere.
  *
  * Use this function like you would a global variable, except without needing
  * to declare the global.
  *
- * Example: <?php $wp_avatar_logo = wp_avatar_logo(); ?>
+ * Example: <?php $wp_gravatar_logo = wp_gravatar_logo(); ?>
  *
  * @since 1.4
- * @return object|WP_Avatar_Logo The one true WP_Avatar_Logo Instance.
+ * @return object|WP_Gravatar_Logo The one true WP_Gravatar_Logo Instance.
  */
-function wp_avatar_logo() {
-	return WP_Avatar_Logo::instance();
+function wp_gravatar_logo() {
+	return WP_Gravatar_Logo::instance();
 }
 
-// Get WP_Avatar_Logo Running.
-wp_avatar_logo();
+// Get WP_Gravatar_Logo Running.
+wp_gravatar_logo();

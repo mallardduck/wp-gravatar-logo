@@ -25,7 +25,7 @@ if ( ! class_exists( 'WP_Customize_Control' ) ) {
  *
  * @access  public
  */
-class WP_Avatar_Logo_Range_Control extends WP_Customize_Control {
+class WP_Gravatar_Logo_Range_Control extends WP_Customize_Control {
 
 	/**
 	 * The control type.
@@ -33,7 +33,7 @@ class WP_Avatar_Logo_Range_Control extends WP_Customize_Control {
 	 * @access public
 	 * @var string
 	 */
-	public $type = 'wp-avatar-logo-range';
+	public $type = 'wp-gravatar-logo-range';
 
 	/**
 	 * Enqueue neccessary custom control stylesheet.
@@ -41,17 +41,17 @@ class WP_Avatar_Logo_Range_Control extends WP_Customize_Control {
 	public function enqueue() {
 
 		// Define where the control's scripts are.
-		$js_dir = WP_AVATAR_LOGO_PLUGIN_URL . 'assets/js/';
-		$css_dir = WP_AVATAR_LOGO_PLUGIN_URL . 'assets/css/';
+		$js_dir = WP_GRAVATAR_LOGO_PLUGIN_URL . 'assets/js/';
+		$css_dir = WP_GRAVATAR_LOGO_PLUGIN_URL . 'assets/css/';
 
 		// Use minified libraries if SCRIPT_DEBUG is turned off.
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// Custom control styles.
-		wp_enqueue_style( 'wp-avatar-logo-range-control', $css_dir . 'wp-avatar-logo-range-control' . $suffix . '.css', WP_AVATAR_LOGO_VERSION, 'all' );
+		wp_enqueue_style( 'wp-gravatar-logo-range-control', $css_dir . 'wp-gravatar-logo-range-control' . $suffix . '.css', WP_GRAVATAR_LOGO_VERSION, 'all' );
 
 		// Custom control scripts.
-		wp_enqueue_script( 'wp-avatar-logo-range-control', $js_dir . 'wp-avatar-logo-range-control' . $suffix . '.js', array( 'jquery' ), WP_AVATAR_LOGO_VERSION, 'all' );
+		wp_enqueue_script( 'wp-gravatar-logo-range-control', $js_dir . 'wp-gravatar-logo-range-control' . $suffix . '.js', array( 'jquery' ), WP_GRAVATAR_LOGO_VERSION, 'all' );
 
 	}
 
