@@ -2,7 +2,7 @@
   "name": "WP Gravatar Logo",
   "slug": "wp-gravatar-logo",  
   "textdomain": "wp-gravatar-logo",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "The simplest way to use a Gravatar as your website's logo within the WordPress Customizer.",  
   "plugin_uri": "https://themebeans.com/plugins/wp-gravatar-logo",
   "author": "Rich Tabor of ThemeBeans <hello@themebeans.com>",

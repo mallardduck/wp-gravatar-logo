@@ -231,7 +231,7 @@ endif;
  *
  * Example: <?php $wp_gravatar_logo = wp_gravatar_logo(); ?>
  *
- * @since 1.4
+ * @since 1.0
  * @return object|WP_Gravatar_Logo The one true WP_Gravatar_Logo Instance.
  */
 function wp_gravatar_logo() {

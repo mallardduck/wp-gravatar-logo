@@ -1,8 +1,8 @@
 @import "variables";
 
-// #customize-control-custom_logo {
-// 	display: none !important;
-// }
+#customize-control-custom_logo_max_width + #customize-control-wp_gravatar_logo__email {
+	margin-top: 7px;
+}
 
 #customize-control-wp_gravatar_logo__email {
 	border-top: 1px solid #ddd;

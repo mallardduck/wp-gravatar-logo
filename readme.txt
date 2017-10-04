@@ -7,7 +7,7 @@ Tags: gravatar, logo, custom logo
 Requires at least: 4.0
 Tested up to: 4.9
 Requires PHP: 5.2.4
-Stable tag: 1.0
+Stable tag: @@pkg.version
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,9 +31,14 @@ WP Gravatar Logo is the easiest way to use a Gravatar as your website's logo wit
 
 == Changelog ==
 
+= 1.0.2 =
+* Minor Customizer priority fix
+
+= 1.0.1 =
+* Minor Customizer style improvements
+
 = 1.0 =
 * Initial upload.
-
 
 == Upgrade Notice ==
 
