@@ -3,6 +3,7 @@ node_modules
 *.log
 *.map
 .DS_Store
+/dist/
 TODO
 *.sublime-project
 *.sublime-workspace
