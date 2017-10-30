@@ -9,7 +9,7 @@
 		});
 
 		$( '.range-reset' ).on( 'click', function () {
-			var 
+			var
 			input = $( this ).prev( $( 'input[data-input-type]' ) ),
 			defaultvalue = input.data('default-value');
 

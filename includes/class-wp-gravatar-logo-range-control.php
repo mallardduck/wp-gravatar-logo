@@ -87,11 +87,11 @@ class WP_Gravatar_Logo_Range_Control extends WP_Customize_Control {
 			</div>
 
 			<input class="track" data-default-value="<?php echo esc_html( $this->default ); ?>" data-input-type="range" type="range"<?php $this->input_attrs(); ?> value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?> />
-			
+
 			<a type="button" value="reset" class="range-reset"></a>
 
 		</div>
-		
+
 		<?php
 	}
 }
