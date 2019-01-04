@@ -31,6 +31,10 @@ WP Gravatar Logo is the easiest way to use a Gravatar as your website's logo wit
 
 == Changelog ==
 
+= 1.1.0 =
+* Add method to validate the Gravater URL being used includes a hash.
+* Add global helper method to access new validation method.
+
 = 1.0.2 =
 * Minor Customizer priority fix
 
