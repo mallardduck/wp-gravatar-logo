@@ -190,6 +190,27 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 		}
 
 		/**
+		 * Determines whether the site has a valid gravater logo.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @return bool Whether the site has a valid gravater logo or not.
+		 */
+		public static function has_gravatar() {
+			/**
+			 * Filter the author avatar. Defaults to the admin's email address.
+			 */
+			$avatar = get_theme_mod( 'wp_gravatar_logo__email', get_bloginfo( 'admin_email' ) );
+			$avatar_url = get_avatar_url( $avatar, 42 ); // Size doesn't matter for this test.
+			// When a Gravatar is invalid it will have a URL without a hash
+			// between the '/avatar/' & Query Paramaters. So when this result is
+			// 'true' we know that no valid Garvatar was found.
+			$results = preg_grep('/\/avatar\/\?s/', explode("\n", $avatar_url));
+			$status = (bool) $results;
+			return ! $status;
+		}
+
+		/**
 		 * Plugins row action links.
 		 *
 		 * @param array|string  $links already defined action links.
@@ -237,6 +258,24 @@ endif;
 function wp_gravatar_logo() {
 	return WP_Gravatar_Logo::instance();
 }
+
+/**
+ * A helper function to quickly check for a valid gravatar logo.
+ *
+ * A globally accesible function for determining the sites access to a vaild
+ * gravatar based logo.
+ *
+ * For use in themes the same way `has_custom_logo` is used.
+ *
+ * Example: <?php if ( has_custom_logo() || ( function_exists('wp_has_gravatar_logo') && wp_has_gravatar_logo() ) ) : ?>
+ *
+ * @since 1.1.0
+ * @return bool Whether the site has a valid gravater logo or not.
+ */
+function wp_has_gravatar_logo() {
+	return WP_Gravatar_Logo::has_gravatar();
+}
+
 
 // Get WP_Gravatar_Logo Running.
 wp_gravatar_logo();
