@@ -2,11 +2,11 @@
 /**
  * Plugin Name: WP Gravatar Logo
  * Plugin URI: https://themebeans.com/plugins/wp-gravatar-logo
- * Description: @@pkg.description
- * Author: @@pkg.author
+ * Description: The simplest way to use a Gravatar as your website's logo within the WordPress Customizer.
+ * Author: Rich Tabor of ThemeBeans <hello@themebeans.com>
  * Author URI: https://richtabor.com
- * Version: @@pkg.version
- * Text Domain: @@pkg.textdomain
+ * Version: 1.1.0
+ * Text Domain: wp-gravatar-logo
  * Domain Path: languages
  * Requires at least: 4.0
  * Tested up to: 4.8.2
@@ -24,10 +24,10 @@
  * You should have received a copy of the GNU General Public License
  * along with WP Avatar Logo. If not, see <http://www.gnu.org/licenses/>.
  *
- * @package   @@pkg.name
- * @author    @@pkg.author
- * @license   @@pkg.license
- * @version   @@pkg.version
+ * @package   WP_Gravatar_Logo
+ * @author    Rich Tabor of ThemeBeans <hello@themebeans.com>
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @version   1.1.0
  */
 
 // Exit if accessed directly.
@@ -109,7 +109,7 @@ if ( ! class_exists( 'WP_Gravatar_Logo' ) ) :
 		 * @return void
 		 */
 		private function constants() {
-			$this->define( 'WP_GRAVATAR_LOGO_VERSION', '@@pkg.version' );
+			$this->define( 'WP_GRAVATAR_LOGO_VERSION', '1.1.0' );
 			$this->define( 'WP_GRAVATAR_LOGO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 			$this->define( 'WP_GRAVATAR_LOGO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 			$this->define( 'WP_GRAVATAR_LOGO_PLUGIN_FILE', __FILE__ );

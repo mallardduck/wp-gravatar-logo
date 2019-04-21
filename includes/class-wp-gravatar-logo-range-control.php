@@ -4,10 +4,10 @@
  *
  * @see ttps://developer.wordpress.org/reference/classes/wp_customize_control/
  *
- * @package   @@pkg.name
- * @author    @@pkg.author
- * @license   @@pkg.license
- * @version   @@pkg.version
+ * @package   WP_Gravatar_Logo
+ * @author    Rich Tabor of ThemeBeans <hello@themebeans.com>
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @version   1.1.0
  */
 
 // Exit if accessed directly.
